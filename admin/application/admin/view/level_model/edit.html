@@ -1,0 +1,41 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" data-rule="required" class="form-control" name="row[name]" type="text" value="{$row.name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Card_model_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-card_model_id" data-rule="required" class="form-control" name="row[card_model_id]" type="number" value="{$row.card_model_id|htmlentities}">
+<!--            <input id="c-card_model_id" data-rule="required" min="0" data-source="card_model/index" class="form-control selectpage" name="row[card_model_id]" type="text" value="{$row.card_model_id|htmlentities}">-->
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Small_power')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-small_power" data-rule="required" class="form-control" name="row[small_power]" type="number" value="{$row.small_power|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Weight')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-weight" data-rule="required" class="form-control" step="0.01" name="row[weight]" type="number" value="{$row.weight|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Upper_limit')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-upper_limit" data-rule="required" class="form-control" name="row[upper_limit]" type="number" value="{$row.upper_limit|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,1099 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta name="referrer" content="never">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <!-- Loading Bootstrap -->
+    <link href="/assets/css/backend.min.css?v=1.0.5" rel="stylesheet">
+
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        var require = {
+            config: {
+                "site": {
+                    "name": "Shopro\u5546\u57ce",
+                    "cdnurl": "",
+                    "version": "1.0.5",
+                    "timezone": "Asia\/Shanghai",
+                    "languages": {"backend": "zh-cn", "frontend": "zh-cn"}
+                },
+                "upload": {
+                    "cdnurl": "",
+                    "uploadurl": "\/shopro.php\/ajax\/upload",
+                    "bucket": "local",
+                    "maxsize": "10mb",
+                    "mimetype": "jpg,png,bmp,jpeg,gif,webp,zip,rar,wav,mp4,mp3,webm,crt,pem",
+                    "chunking": false,
+                    "chunksize": 2097152,
+                    "savekey": "\/uploads\/{year}{mon}{day}\/{filemd5}{.suffix}",
+                    "multipart": [],
+                    "multiple": false,
+                    "fullmode": false,
+                    "thumbstyle": "",
+                    "storage": "local"
+                },
+                "modulename": "admin",
+                "controllername": "shopro.commission.agent",
+                "actionname": "profile",
+                "jsname": "backend\/shopro\/commission\/agent",
+                "moduleurl": "\/shopro.php",
+                "language": "zh-cn",
+                "referer": null,
+                "__PUBLIC__": "\/",
+                "__ROOT__": "\/",
+                "__CDN__": "",
+                "summernote": {"classname": ".summernote,.editor"},
+                "row": {
+                    "user_id": 8131,
+                    "level": 1,
+                    "parent_agent_id": 0,
+                    "apply_info": "[{\"name\":\"111\",\"type\":\"input\",\"value\":\"567\"}]",
+                    "total_income": "0.00",
+                    "order_money": "0.00",
+                    "child_order_money_1": "0.00",
+                    "child_order_money_2": "0.00",
+                    "child_order_money": "0.00",
+                    "order_count": 0,
+                    "child_order_count_1": 0,
+                    "child_order_count_2": 0,
+                    "child_order_count": 0,
+                    "child_agent_count_1": 0,
+                    "child_agent_count_2": 0,
+                    "child_agent_count": 0,
+                    "child_agent_level_1": [],
+                    "child_agent_level": [],
+                    "upgrade_lock": 0,
+                    "apply_num": 2,
+                    "info_status": 1,
+                    "level_status": 0,
+                    "status": "normal",
+                    "becometime": 1678518254,
+                    "createtime": 1678518254,
+                    "updatetime": 1678518254,
+                    "user": {
+                        "id": 8131,
+                        "avatar": "http:\/\/file.shopro.top\/uploads\/20200410\/default-avatar.png",
+                        "nickname": "Shopro-8131",
+                        "mobile": "188****0525",
+                        "child_user_count": 0,
+                        "child_user_count_1": 0,
+                        "child_user_count_2": 0,
+                        "total_consume": "0.00"
+                    },
+                    "agent_level": {
+                        "image": "\/uploads\/20220909\/5c5e361cd3869e363e8d19c4911905e5.jpg",
+                        "name": "\u4e3b\u7406\u4eba",
+                        "level": 1,
+                        "commission_rules": {"commission_1": "10.00", "commission_2": "5.00", "commission_3": "2.00"}
+                    },
+                    "parent_agent": null,
+                    "status_text": "\u6b63\u5e38",
+                    "delay_money": "0.00",
+                    "level_status_text": ""
+                }
+            }
+        };
+    </script>
+
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="/assets/js/require-backend.min.js?v=1.0.5"
+            src="/assets/js/require-backend.min.js?v=1.0.5"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="lang"
+            src="/shopro.php/ajax/lang?callback=define&amp;controllername=shopro.commission.agent&amp;lang=zh-cn&amp;v=1.0.5&amp;v=1.0.5"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="addons"
+            src="/assets/js/addons.js?v=1.0.5"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="backend/shopro/commission/agent"
+            src="/assets/js/backend/shopro/commission/agent.js?v=1.0.5"></script>
+</head>
+
+<body class="inside-header inside-aside is-dialog">
+<div id="main" role="main">
+    <div class="tab-content tab-addtabs">
+        <div id="content">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <section class="content-header hide">
+                        <h1>
+                            控制台 <small>Control panel</small>
+                        </h1>
+                    </section>
+                    <div class="content">
+                        <link rel="stylesheet" href="/assets/addons/shopro/libs/element/element.css">
+                        <style>
+                            #agentDetail {
+                                color: #666;
+                                background-color: #f1f4f6;
+                                font-size: 13px;
+                                padding: 10px;
+                                font-family: Noto Sans SC;
+                                font-weight: 400;
+                            }
+
+                            .agent-image .el-image {
+                                border-radius: 50%;
+                            }
+
+                            .font-weight {
+                                font-weight: 500;
+                            }
+
+                            .profile-block {
+                                background: #fff;
+                                padding: 18px 0;
+                                box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.06);
+                                border-radius: 6px;
+                                margin-bottom: 10px;
+                            }
+
+                            .agent-message {
+                                flex-direction: column;
+                                align-items: center;
+                                min-height: 545px;
+                                padding-top: 30px;
+                            }
+
+                            .agent-image {
+                                width: 98px;
+                                height: 98px;
+                                border: 1px solid #E6E6E6;
+                                box-sizing: border-box;
+                                border-radius: 49px;
+                                margin-bottom: 20px;
+                                position: relative;
+                            }
+
+                            .agent-level-image {
+                                width: 30px;
+                                height: 30px;
+                                border-radius: 50%;
+                                position: absolute;
+                                right: 0;
+                                bottom: 0;
+                            }
+
+                            .agent-name {
+                                font-size: 20px;
+                                line-height: 20px;
+                                margin-bottom: 14px;
+
+
+                                color: #626066;
+                            }
+
+                            .agent-list-item {
+                                margin-bottom: 16px;
+                                font-size: 12px;
+                            }
+
+                            .agent-list-item-more {
+                                margin-bottom: 22px;
+                                align-items: flex-start;
+                                font-size: 12px;
+                            }
+
+                            .agent-list-item-tip {
+                                font-size: 12px;
+                                line-height: 12px;
+                                color: #58575A;
+                                margin-right: 14px;
+                                width: 66px;
+                                display: flex;
+                                align-items: center;
+                            }
+
+                            .tip-span {
+                                flex: 1;
+                            }
+
+                            .agent-list-item-container {
+                                flex: 1;
+                            }
+
+                            .agent-list-item-form {
+                                font-size: 14px;
+                                /* line-height: 14px; */
+                                color: #626066;
+                                margin-right: 14px;
+                            }
+
+                            .agent-commission_rules-item {
+                                margin-right: 12px;
+                            }
+
+                            .agent-commission_rules-rate {
+                                font-size: 16px;
+                                line-height: 16px;
+                                color: #626066;
+                                margin-top: 14px;
+                            }
+
+
+                            .agent-apply {
+                                padding: 18px 20px;
+                                min-height: 545px;
+                                height: 545px;
+                                overflow-y: auto;
+                            }
+
+                            .agent-apply-title {
+                                font-size: 14px;
+                                line-height: 14px;
+                                color: #666666;
+                                padding: 0 0 28px;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                            }
+
+                            .agent-apply-item-tip {
+                                font-size: 12px;
+                                line-height: 12px;
+                                color: #58575A;
+                                margin-bottom: 14px;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                            }
+
+                            .agent-apply-item-tip-delete {
+                                color: #ED655F;
+                                cursor: pointer;
+                            }
+
+                            .agent-apply-item-form {
+                                font-size: 14px;
+                                line-height: 14px;
+                                color: #626066;
+                                margin-bottom: 26px;
+                            }
+
+                            .agent-apply-item:last-of-type .agent-apply-item-form {
+                                margin-bottom: 0;
+                            }
+
+                            .agent-apply-item-identity {
+                                width: 153px;
+                                min-height: 80px;
+                                background: #E6E6E6;
+                                border-radius: 4px;
+                                overflow: hidden;
+                                display: flex;
+                                align-items: center;
+                            }
+
+                            .agent-dashboard {
+                                padding: 0 20px 18px;
+                                min-height: 410px;
+                            }
+
+                            .agent-dashboard-contanmer {
+                                border-bottom: 1px dashed #E6E6E6;
+                            }
+
+                            .agent-dashboard-title,
+                            .agent-assets-title {
+                                font-size: 14px;
+                                line-height: 14px;
+                                color: #666666;
+                                padding: 20px 0px;
+                            }
+
+                            .agent-dashboard-item-tip {
+                                font-size: 12px;
+                                line-height: 12px;
+                                color: #58575A;
+                                margin-bottom: 14px;
+                            }
+
+                            .agent-dashboard-item-form {
+                                font-size: 22px;
+                                line-height: 22px;
+                                color: #626066;
+                                margin-bottom: 20px;
+                                font-weight: 500;
+                                display: flex;
+                                align-items: flex-end;
+                            }
+
+                            .agent-table {
+                                margin-bottom: 0;
+                            }
+
+                            .edit-input {
+                                width: 140px;
+                            }
+
+                            .shopro-edit-cancel {
+                                color: #848089;
+                                cursor: pointer;
+                                margin-left: 10px;
+                            }
+
+                            .el-popover {
+                                padding: 10px;
+                                font-size: 12px;
+                            }
+
+                            .el-dialog {
+                                width: fit-content;
+                            }
+
+                            .el-dialog__header {
+                                height: 50px;
+                                line-height: 50px;
+                                border-bottom: 1px solid #e6e6e6;
+                                padding: 0 20px;
+                                color: #626066;
+                                font-size: 14px;
+                            }
+
+                            .el-dialog__headerbtn {
+                                top: 0;
+                                font-size: 18px;
+                                color: #C4C4C4;
+                            }
+
+                            .el-dialog__body {
+                                font-size: 13px;
+                                color: #444;
+                                padding: 14px 20px;
+                                overflow-y: auto;
+                            }
+
+                            .custom-tree-header {
+                                height: 40px;
+                                background: #F9F9F9;
+                                border: 1px solid #e6e6e6;
+                            }
+
+                            .expanded.el-tree-node__expand-icon.el-icon-caret-right,
+                            .el-tree-node__expand-icon.el-icon-caret-right {
+                                display: none;
+                            }
+
+                            .el-tree-node__content {
+                                height: 44px;
+                                padding: 0 !important;
+                            }
+
+                            .table-image {
+                                width: 30px;
+                                height: 30px;
+                                border-radius: 50%;
+                                margin: 0 10px;
+                            }
+
+                            .drag-item {
+                                width: 100%;
+                                height: 100%;
+                                border: 1px solid #e6e6e6;
+                                border-top: none;
+                            }
+
+                            .expanded-width-id {
+                                width: 70px;
+                                line-height: 44px;
+                                text-align: center;
+                            }
+
+                            .expanded-width-level {
+                                width: 100px;
+                                line-height: 44px;
+                                text-align: center;
+                            }
+
+                            .expanded-width-time {
+                                width: 150px;
+                                line-height: 44px;
+                                text-align: center;
+                            }
+
+                            .level-2 {
+                                padding-left: 52px;
+                            }
+
+                            .border-right {
+                                border-right: 1px solid #F7F7F7;
+                            }
+
+                            .agent-apply-status {
+                                width: 120px;
+                                margin-left: -10px;
+                            }
+
+                            .filter-color-normal .el-input__inner {
+                                color: #444;
+                            }
+
+                            .filter-color-forbidden .el-input__inner {
+                                color: #ED655F;
+                            }
+
+                            .filter-color-pending .el-input__inner {
+                                color: #999;
+                            }
+
+                            .filter-color-freeze .el-input__inner {
+                                color: #687FF4;
+                            }
+
+                            .agent-apply-status .el-input__inner {
+                                border: none;
+                                outline: none;
+                            }
+
+                            .agent-apply-item-nodata {
+                                height: calc(100% - 174px);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 14px;
+                                line-height: 14px;
+                                color: #6B6B6C;
+                            }
+
+                            .ellipsis-item-width {
+                                max-width: 110px;
+                            }
+
+                            .el-popover-tip {
+                                margin-left: 8px;
+                                font-size: 18px;
+                                color: #C4C4C4;
+                            }
+
+
+                            @media screen and (max-width: 1200px) {
+                                .hidden-sm-and-down {
+                                    display: none;
+                                }
+
+                                .hidden-sm-and-up {
+                                    display: block;
+                                }
+                            }
+
+                            @media (min-width: 1200px) {
+                                .hidden-sm-and-down {
+                                    display: block;
+                                }
+
+                                .hidden-sm-and-up {
+                                    display: none;
+                                }
+                            }
+
+                            .parent-agent-header {
+                                height: 40px;
+                                background: #F9F9F9;
+                                border: 1px solid #E6E6E6;
+                            }
+
+                            .parent-agent-header > div {
+                                text-align: center;
+                                line-height: 40px;
+                            }
+
+                            .parent-agent-id {
+                                width: 70px;
+                                text-align: center;
+                            }
+
+                            .parent-agent-message {
+                                width: 170px;
+                                text-align: center;
+                                padding: 0 10px;
+                            }
+
+                            .parent-agent-message .table-image {
+                                margin: 0 10px 0 0;
+                            }
+
+                            .parent-agent-body .parent-agent-id,
+                            .parent-agent-body .parent-agent-message {
+                                border-right: 1px solid #F7F7F7;
+                            }
+
+                            .parent-agent-phone {
+                                width: 110px;
+                                text-align: center;
+                                position: relative;
+                            }
+
+                            .parent-agent-item {
+                                height: 44px;
+                                border-bottom: 1px solid #E6E6E6;
+                                cursor: pointer;
+                            }
+
+                            .parent-agent-item:last-of-type {
+                                border: none;
+                            }
+
+                            .parent-agent-body {
+                                border: 1px solid #E6E6E6;
+                                border-top: none;
+                            }
+
+                            .parent-agent-search {
+                                margin-bottom: 14px;
+                            }
+
+                            .agent-refresh {
+                                position: absolute;
+                                top: -164px;
+                                color: #86848B;
+                                font-weight: 500;
+                                cursor: pointer;
+                            }
+
+                            .agent-refresh span {
+                                margin-left: 8px;
+                            }
+
+                            .el-dialog-tip {
+                                color: #F8A92B;
+                                font-size: 12px;
+                                line-height: 20px;
+                                margin-bottom: 14px;
+                            }
+
+                            .parent-agent-item-active {
+                                background: rgba(116, 56, 213, 0.1);
+                            }
+
+                            .agent-apply-info-status {
+                                padding-bottom: 32px;
+                                margin-bottom: 28px;
+                                border-bottom: 1px dashed #e6e6e6;
+                                justify-content: space-between;
+                            }
+
+                            .apply-info-status-1 .el-input__inner {
+                                color: #ED655F;
+                            }
+
+                            .apply-info-status-2 .el-input__inner {
+                                color: #999;
+                            }
+
+                            .apply-info-status-3 .el-input__inner {
+                                color: #545355;
+                            }
+
+                            .agent-apply-title-cancel {
+                                color: #999;
+                            }
+
+                            .agent-assets {
+                                border-bottom: 1px dashed #e6e6e6;
+                            }
+
+                            .agent-assets:last-of-type {
+                                border-bottom: none;
+                            }
+
+                            .agent-dashboard-item-margin {
+                                margin-bottom: 30px;
+                            }
+
+                            .agent-dashboard-item-tip i {
+                                margin-left: 6px;
+                                font-size: 12px;
+                                color: #7C7C7C;
+                            }
+
+                            .el-breadcrumb {
+                                font-size: 14px;
+                                line-height: 50px;
+                                height: 50px;
+                            }
+
+                            .theme-cursor {
+                                color: #6E3DC8;
+                                cursor: pointer;
+                            }
+
+                            .theme-cursor-edit {
+                                margin-left: 14px;
+                                font-size: 12px;
+                            }
+
+                            .table-height .el-table td .cell {
+                                height: 60px;
+                                display: flex;
+                                align-items: center;
+                            }
+
+                            .reward-item {
+                                margin-right: 16px;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                            }
+
+                            .reward-item:last-of-type {
+                                margin-right: 0;
+                            }
+
+                            .el-image-viewer__close {
+                                color: #6E3DC8;
+                            }
+
+
+                            .el-button--text,
+                            .el-button--text:hover,
+                            .el-button--text:focus {
+                                color: #999;
+                            }
+
+                            .log-selected {
+                                width: 120px !important;
+                                position: relative;
+                            }
+
+                            .log-selected .el-select,
+                            .log-selected .el-input__inner {
+                                font-size: 12px;
+                                border: none;
+                                background: #F9F9F9;
+                            }
+
+                            .log-selected .el-select .el-input .el-select__caret {
+                                color: #444;
+                            }
+
+                            .log-selected-tip {
+                                position: absolute;
+                                z-index: 100;
+                                width: 80px;
+                                background: #F9F9F9;
+                                left: 8px;
+                                text-align: right;
+                            }
+
+                            .no-recommendation {
+                                color: #FE7C76;
+                                cursor: pointer;
+                            }
+
+                            .shopro-pagination-container {
+                                padding: 20px 0 0 20px;
+                            }
+
+                            .el-pagination {
+                                padding: 0;
+                            }
+
+                            .crumbs-item-container {
+                                width: 600px;
+                                display: block;
+                            }
+
+                            .agent-dashboard-popover-item {
+                                margin-bottom: 10px;
+                            }
+
+                            .agent-dashboard-popover-item:last-of-type {
+                                margin: 0;
+                            }
+
+                            .el-popover {
+                                min-width: 92px;
+                                color: #848089;
+                            }
+
+                            .agent-dashboard-popover-item-tip {
+                                margin-right: 10px;
+                            }
+
+                            .unit-tip-item {
+                                color: #626066;
+                                font-size: 12px;
+                                margin-left: 6px;
+                                line-height: 18px;
+                            }
+
+                            .nice-validator .el-input__inner {
+                                vertical-align: baseline !important;
+                            }
+
+                            [v-cloak] {
+                                display: none
+                            }
+                        </style>
+                        <div class="hidden-sm-and-down "
+                             style="padding-left: 5px; padding-right: 5px;">
+                            <div class="profile-block agent-dashboard">
+                                <div class="agent-dashboard-contanmer">
+                                    <div class="agent-dashboard-title font-weight">
+                                        节点人
+                                    </div>
+                                    <div class="el-row" style="margin-left: -5px; margin-right: -5px;">
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">小节点人数：</div>
+                                                <div class="agent-dashboard-item-form">{$data['node']['smallNumber']}
+                                                    <span class="unit-tip-item">个</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">大节点人数：</div>
+                                                <div class="agent-dashboard-item-form">{$data['node']['bigNumber']}
+                                                    <span class="unit-tip-item">个</span></div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">超级节点人数:</div>
+                                                <div class="agent-dashboard-item-form">{$data['node']['superNumber']}
+                                                    <span class="unit-tip-item">个</span></div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">总订单金额:</div>
+                                                <div class="agent-dashboard-item-form">{$data['node']['totalOrder']}
+<!--                                                    <span class="unit-tip-item"></span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+                                <div class="agent-dashboard-contanmer">
+                                    <div class="agent-dashboard-title font-weight">
+                                        ART全网数据
+                                    </div>
+                                    <div class="el-row" style="margin-left: -5px; margin-right: -5px;">
+                                        <div class="el-col el-col-12"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">今日ART销毁量：</div>
+                                                <div class="agent-dashboard-item-form">{$data['art']['dayDestroyedNumber']}
+<!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-12"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">全网ART流通总量：</div>
+                                                <div class="agent-dashboard-item-form">{$data['art']['circulationTotalNumber']}
+<!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">全网ART算力值:</div>
+                                                <div class="agent-dashboard-item-form">{$data['art']['totalCalculated']}
+<!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">全网ART动态算力值:</div>
+                                                <div class="agent-dashboard-item-form">{$data['art']['dynamicCalculated']}
+<!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">全网ART静态算力值:</div>
+                                                <div class="agent-dashboard-item-form">{$data['art']['staticCalculated']}
+<!--                                                    <span class="unit-tip-item">人</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="agent-dashboard-contanmer">
+                                    <div class="agent-dashboard-title font-weight">
+                                        SOUL全网数据
+                                    </div>
+                                    <div class="el-row" style="margin-left: -5px; margin-right: -5px;">
+
+                                        <div class="el-col el-col-12"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">今日SOUL销毁量：</div>
+                                                <div class="agent-dashboard-item-form">{$data['soul']['circulationTotalNumber']}
+                                                    <!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-12"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">全网SOUL流通总量：</div>
+                                                <div class="agent-dashboard-item-form">{$data['soul']['circulationTotalNumber']}
+                                                    <!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">全网SOUL算力值:</div>
+                                                <div class="agent-dashboard-item-form">{$data['soul']['totalCalculated']}
+                                                    <!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">全网SOUL动态算力值:</div>
+                                                <div class="agent-dashboard-item-form">{$data['soul']['dynamicCalculated']}
+                                                    <!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">全网SOUL静态算力值:</div>
+                                                <div class="agent-dashboard-item-form">{$data['soul']['staticCalculated']}
+                                                    <!--                                                    <span class="unit-tip-item">人</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+                                </div>
+                                <div class="agent-dashboard-contanmer">
+                                    <div class="agent-dashboard-title font-weight">
+                                        令牌数据
+                                    </div>
+                                    <div class="el-row" style="margin-left: -5px; margin-right: -5px;">
+
+                                        <div class="el-col el-col-24"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">待产出总数量：</div>
+                                                <div class="agent-dashboard-item-form">{$data['model']['noOutputTotalNumber']}
+                                                    <!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {volist name="cardModelList" id="vo"}
+                                        <div class="el-col el-col-6"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item">
+                                                <div class="agent-dashboard-item-tip">{$vo['name']}:</div>
+                                                <div class="agent-dashboard-item-form">
+                                                    {$vo['level_number']}
+                                                    <span class="unit-tip-item">个</span></div>
+                                            </div>
+                                        </div>
+                                        {/volist}
+
+
+                                    </div>
+                                </div>
+                                <div class="agent-dashboard-contanmer">
+                                    <div class="agent-dashboard-title font-weight">
+                                        用户数据
+                                    </div>
+                                    <div class="el-row" style="margin-left: -5px; margin-right: -5px;">
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">ART余额-待提现：</div>
+                                                <div class="agent-dashboard-item-form">{$data['user']['artNoWithdrawn']}
+                                                    <!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">ART提现总量：</div>
+                                                <div class="agent-dashboard-item-form">{$data['user']['artWithdrawnTotal']}
+                                                    <!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">ART释放总量:</div>
+                                                <div class="agent-dashboard-item-form">{$data['user']['artReleaseTotal']}
+                                                    <!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">SOUL余额-待提现:</div>
+                                                <div class="agent-dashboard-item-form">{$data['user']['soulNoWithdrawn']}
+                                                    <!--                                                    <span class="unit-tip-item">个</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">SOUL提现总量:</div>
+                                                <div class="agent-dashboard-item-form">{$data['user']['soulWithdrawnTotal']}
+                                                    <!--                                                    <span class="unit-tip-item">人</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-col el-col-8"
+                                             style="padding-left: 5px; padding-right: 5px;">
+                                            <div class="agent-dashboard-item agent-dashboard-item-margin">
+                                                <div class="agent-dashboard-item-tip">SOUL释放总量:</div>
+                                                <div class="agent-dashboard-item-form">{$data['user']['soulReleaseTotal']}
+                                                    <!--                                                    <span class="unit-tip-item">人</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+<!--                                <div class="agent-assets">-->
+<!--                                    <div class="agent-assets-title font-weight">-->
+<!--                                        业绩统计-->
+<!--                                    </div>-->
+<!--                                    <div class="el-row" style="margin-left: -5px; margin-right: -5px;">-->
+<!--                                        <div class="el-col el-col-6"-->
+<!--                                             style="padding-left: 5px; padding-right: 5px;">-->
+<!--                                            <div class="agent-dashboard-item agent-dashboard-item-margin">-->
+<!--                                                <div class="agent-dashboard-item-tip">团队分销总金额：</div>-->
+<!--                                                <div class="agent-dashboard-item-form">0.00-->
+<!--                                                    <span class="unit-tip-item">元</span></div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="el-col el-col-6"-->
+<!--                                             style="padding-left: 5px; padding-right: 5px;">-->
+<!--                                            <div class="agent-dashboard-item agent-dashboard-item-margin">-->
+<!--                                                <div class="agent-dashboard-item-tip">一级分销总金额:</div>-->
+<!--                                                <div class="agent-dashboard-item-form">0.00-->
+<!--                                                    <span class="unit-tip-item">元</span></div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="el-col el-col-6"-->
+<!--                                             style="padding-left: 5px; padding-right: 5px;">-->
+<!--                                            <div class="agent-dashboard-item agent-dashboard-item-margin">-->
+<!--                                                <div class="agent-dashboard-item-tip">二级分销总金额:</div>-->
+<!--                                                <div class="agent-dashboard-item-form">0.00-->
+<!--                                                    <span class="unit-tip-item">元</span></div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="el-col el-col-6"-->
+<!--                                             style="padding-left: 5px; padding-right: 5px;">-->
+<!--                                            <div class="agent-dashboard-item agent-dashboard-item-margin">-->
+<!--                                                <div class="agent-dashboard-item-tip">直推分销总金额:-->
+<!--                                                    <span><div role="tooltip" id="el-popover-7824"-->
+<!--                                                               aria-hidden="true"-->
+<!--                                                               class="el-popover el-popper el-popover&#45;&#45;plain"-->
+<!--                                                               tabindex="0"-->
+<!--                                                               style="width: 210px; display: none;">&lt;!&ndash;&ndash;&gt;包含直推分销金额和内购分销金额</div><i-->
+<!--                                                            class="el-icon-warning el-popover__reference"-->
+<!--                                                            aria-describedby="el-popover-7824"-->
+<!--                                                            tabindex="0"></i></span></div>-->
+<!--                                                <div class="agent-dashboard-item-form theme-cursor">-->
+<!--                                                    0.00-->
+<!--                                                    <span class="unit-tip-item">元</span></div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="el-col el-col-6"-->
+<!--                                             style="padding-left: 5px; padding-right: 5px;">-->
+<!--                                            <div class="agent-dashboard-item">-->
+<!--                                                <div class="agent-dashboard-item-tip">团队分销订单：</div>-->
+<!--                                                <div class="agent-dashboard-item-form">0-->
+<!--                                                    <span class="unit-tip-item">单</span></div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="el-col el-col-6"-->
+<!--                                             style="padding-left: 5px; padding-right: 5px;">-->
+<!--                                            <div class="agent-dashboard-item">-->
+<!--                                                <div class="agent-dashboard-item-tip">一级分销订单:</div>-->
+<!--                                                <div class="agent-dashboard-item-form">0-->
+<!--                                                    <span class="unit-tip-item">单</span></div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="el-col el-col-6"-->
+<!--                                             style="padding-left: 5px; padding-right: 5px;">-->
+<!--                                            <div class="agent-dashboard-item">-->
+<!--                                                <div class="agent-dashboard-item-tip">二级分销订单:</div>-->
+<!--                                                <div class="agent-dashboard-item-form">0-->
+<!--                                                    <span class="unit-tip-item">单</span></div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="el-col el-col-6"-->
+<!--                                             style="padding-left: 5px; padding-right: 5px;">-->
+<!--                                            <div class="agent-dashboard-item">-->
+<!--                                                <div class="agent-dashboard-item-tip">直推分销订单:-->
+<!--                                                    <span><div role="tooltip" id="el-popover-7559"-->
+<!--                                                               aria-hidden="true"-->
+<!--                                                               class="el-popover el-popper el-popover&#45;&#45;plain"-->
+<!--                                                               tabindex="0"-->
+<!--                                                               style="width: 210px; display: none;">&lt;!&ndash;&ndash;&gt;包含直推分销订单和自购分销订单</div><i-->
+<!--                                                            class="el-icon-warning el-popover__reference"-->
+<!--                                                            aria-describedby="el-popover-7559"-->
+<!--                                                            tabindex="0"></i></span></div>-->
+<!--                                                <div class="agent-dashboard-item-form theme-cursor">-->
+<!--                                                    0-->
+<!--                                                    <span class="unit-tip-item">单</span></div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/js/require.min.js" data-main="/assets/js/require-backend.min.js?v=1.0.5"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body * {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+
+.line1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.flex1{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flex2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex3{
+  display: flex;
+  align-items: center;
+}
+
+/* 空状态 */
+.null1{
+  width: 200px;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.null1 img{
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+
+.rolling_box {
+  width: 100%;
+  height: calc(100vh - 96px);
+  overflow-y: scroll;
+  padding-bottom:30px;
+}
+
+.rolling_box::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 0px; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 0px;
+  scrollbar-arrow-color: red;
+}
+.rolling_box::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 0px;
+  -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  scrollbar-arrow-color: red;
+}
+.rolling_box::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+.underline{
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+}
+.my-bottom {
+  display: inline-block;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 25px;
+  padding: 0 16px;
+}
+.my-bottom.primary{
+  color: #fff;
+  background-color: #1890ff;
+  border: 1px solid #1890ff;
+}
