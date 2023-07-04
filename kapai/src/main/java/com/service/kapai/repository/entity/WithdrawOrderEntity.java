@@ -1,6 +1,5 @@
 package com.service.kapai.repository.entity;
 
-import com.service.kapai.repository.model.TransactionStatus;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -59,7 +58,7 @@ public class WithdrawOrderEntity implements java.io.Serializable {
      * 默认值: 0
      */
     @Column("status")
-    public TransactionStatus status = TransactionStatus.IN_PROGRESS;
+    public Integer status = 0;
 
     /**
      * 更新时间

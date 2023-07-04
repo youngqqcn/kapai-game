@@ -1,7 +1,5 @@
 package com.service.kapai.repository.entity;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.service.boot.converter.enums.EnumCode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
@@ -29,7 +27,7 @@ public class AssetLogEntity implements java.io.Serializable {
      * 默认值: 0
      */
     @Column("type")
-    public Type type = Type.UNKNOWN;
+    public Integer type = 0;
 
     /**
      * 关联ID
@@ -82,7 +80,7 @@ public class AssetLogEntity implements java.io.Serializable {
     @CreatedDate
     public java.util.Date createTime;
 
-    public enum Type implements EnumCode<Integer> {
+    public enum Type {
 
         UNKNOWN(0, "未知"), Power(1, "算力"), TOKEN_A(2, "A代币"), TOKEN_B(3, "B代币"), EP(5, "EP"), USDT(6, "USD");
 
@@ -92,12 +90,6 @@ public class AssetLogEntity implements java.io.Serializable {
         Type(int type, String name) {
             this.type = type;
             this.name = name;
-        }
-
-        @JsonValue
-        @Override
-        public Integer getValue() {
-            return type;
         }
 
         public static Type valueOf(int type) {
@@ -111,7 +103,7 @@ public class AssetLogEntity implements java.io.Serializable {
         }
     }
 
-    public enum SourcePower implements EnumCode<Integer> {
+    public enum SourcePower {
         UNKNOWN(0, "未知"), MOLD(1, "铸造"), ZT_MOLD(2, "直推");
 
         public final int source;
@@ -121,31 +113,9 @@ public class AssetLogEntity implements java.io.Serializable {
             this.source = source;
             this.name = name;
         }
-
-        @Override
-        public Integer getValue() {
-            return source;
-        }
     }
 
-    public enum SourceEP implements EnumCode<Integer> {
-        UNKNOWN(0, "未知"), SWAP(1, "兑换"), MOLD(2, "铸造"), MOLD_RETURN(3, "铸造失败返还"), BUY_NODE(4, "购买节点赠送");
-
-        public final int source;
-        public final String name;
-
-        SourceEP(int source, String name) {
-            this.source = source;
-            this.name = name;
-        }
-
-        @Override
-        public Integer getValue() {
-            return source;
-        }
-    }
-
-    public enum SourceToken implements EnumCode<Integer> {
+    public enum SourceToken {
         UNKNOWN(0, "未知"),
         WITHDRAW(1, "提现"),
         CHECK_IN(2, "签到"),
@@ -164,11 +134,6 @@ public class AssetLogEntity implements java.io.Serializable {
         SourceToken(int source, String name) {
             this.source = source;
             this.name = name;
-        }
-
-        @Override
-        public Integer getValue() {
-            return source;
         }
     }
 }

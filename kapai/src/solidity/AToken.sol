@@ -143,15 +143,13 @@ contract Token is Context, IBEP20, Ownable {
     mapping(address => mapping(address => uint256)) private _allowances;
     address private _LP = 0x0000000000000000000000000000000000000000;
     address private _black_hole = 0x0000000000000000000000000000000000000111;
-    address private _market_value_address = 铸造市值钱包地址;
-    address private _address_a = 买手续费 收费钱包地址;
-    address private _address_b = 卖手续费 收费钱包地址;
+    address private _market_value_address = 0xb3a3Eb5D9bFbD662325941d8a5615023e3c817F6;
+    address private _address_a = 0xf9B267e91299A77B5c8211529f6ee201d28D3570;
+    address private _address_b = 0xB58a94987B944390Dd9B40d4aCB7442Ef9ed7e7b;
     //test net: 0x3966aeb2c687ea5f64440ea494e6aa7690fac518
-    //main net: 0x55d398326f99059fF775485246999027B3197955
-    address private _usdt_address = USDT合约地址;
+    address private _usdt_address = 0x55d398326f99059fF775485246999027B3197955;
     //test net: 0xD99D1c33F9fC3444f8101754aBC46c52416550D1
-    //main net: 0x10ED43C718714eb63d5aA57B78B54704E256024E
-    IPancakeRouter02 private _router = IPancakeRouter02(博饼V2版本去中心化交易所主合约地址);
+    IPancakeRouter02 private _router = IPancakeRouter02(0x10ED43C718714eb63d5aA57B78B54704E256024E);
     IBEP20 private _ep = IBEP20(IOT合约地址);
     uint256 private _totalSupply;
     uint8 private _decimals;

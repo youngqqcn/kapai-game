@@ -38,6 +38,6 @@ class BuyNodeOrderService(
 
     @Transactional(readOnly = true)
     fun getOrders(walletId: Long, pageSize: Int, page: Int): Page<BuyNodeOrderEntity> {
-        return buyNodeOrderRepository.findByWalletIdAndStatusIn(walletId, listOf(TransactionStatus.IN_PROGRESS, TransactionStatus.COMPLETED), PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("id"))))
+        return buyNodeOrderRepository.findByWalletIdAndStatusIn(walletId, listOf(TransactionStatus.IN_PROGRESS.status, TransactionStatus.COMPLETED.status), PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("id"))))
     }
 }

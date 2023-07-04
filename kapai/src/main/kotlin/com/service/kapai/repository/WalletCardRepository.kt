@@ -1,7 +1,6 @@
 package com.service.kapai.repository
 
 import com.service.kapai.repository.entity.WalletCardEntity
-import com.service.kapai.repository.entity.WalletCardEntity.Status
 import com.service.kapai.repository.model.WalletCardInfo
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -45,11 +44,11 @@ GROUP BY `wallet_card`.`card_model_id`
     @Query("SELECT IFNULL(SUM(`power`), 0) as power FROM `wallet_card` WHERE `wallet_id`=:walletId AND `output`>0 AND `status`=0")
     fun walletTotalPower(walletId: Long): Long
 
-    fun findByStatusAndOutputGreaterThan(status: Status, output: BigDecimal, pageable: Pageable): Page<WalletCardEntity>
+    fun findByStatusAndOutputGreaterThan(status: Int, output: BigDecimal, pageable: Pageable): Page<WalletCardEntity>
 
-    fun findByWalletIdAndStatusAndOutputGreaterThan(walletId: Long, status: Status, output: BigDecimal): List<WalletCardEntity>
+    fun findByWalletIdAndStatusAndOutputGreaterThan(walletId: Long, status: Int, output: BigDecimal): List<WalletCardEntity>
 
     fun findByCardModelIdAndWalletIdOrderByIdDesc(cardModelId: Long, walletId: Long, pageable: Pageable): Page<WalletCardEntity>
 
-    fun findByWalletIdAndStatusAndDaysGreaterThanEqual(walletId: Long, status: Status, days: Int): List<WalletCardEntity>
+    fun findByWalletIdAndStatusAndDaysGreaterThanEqual(walletId: Long, status: Int, days: Int): List<WalletCardEntity>
 }

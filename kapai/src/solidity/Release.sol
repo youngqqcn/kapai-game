@@ -106,10 +106,10 @@ library DateTime {
 contract C is Ownable {
     using DateTime for uint;
     address[4] private _wallets = [
-    每日提币钱包,
-    基金会钱包1,
-    基金会钱包2,
-    基金会钱包3
+    0xcFF7283f3126fe907aA0514Ad36659C7fF5DCe86,
+    0x056d367c39B8Fb892FA27A1E727343035FEd514a,
+    0xC6B3345890466B0a2f44B043C5DF94488b1c4f16,
+    0xD5C43Ed064F9c32C8C029586cEb4688F9C308c57
     ];
     uint256[4] private _values_a = [
     uint256(192157000000000000000000),

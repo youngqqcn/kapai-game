@@ -19,6 +19,8 @@ spring:
       port: 6379
       timeout: 600
       password: 123456
+  jackson:
+    default-property-inclusion: non_null
   task:
     execution:
       thread-name-prefix: 'task-'
@@ -58,9 +60,9 @@ app:
   token_b: '0x6247d35e6562da66ace5fc7c0aa3e413c0dadcc5' # BSC链中的SOUL代币合约地址 全小写
   token_e_p: '0x24d3502d7d744479f4030ae7163643ae856ce324' # BSC链中的IOT代币合约地址 全小写
   release_contract: '0xd51fabdc3c646d180e2eefddadab5763ac678744' # BSC链中ART/SOUL释放合约地址 全小写
-  community_address: '0x220c02643e25d5266c3ebf835e6ced86ad541fc6' #社区建设钱包
-  technology_address: '0x907b0edf5785978f4dac4e811bd0d748ae0e3611' #技术钱包
+  community_address: '0x87d5f98a7b4c7a9c405567fb77a677d4bf2466e3' #社区建设钱包
+  technology_address: '0x50993470380f74271b8efdff610a230a0cd46e91' #技术钱包
   reng_gou_contract: '0x52eb217c47d7490f581385787fdd258d1d21ca16' # BSC链中节点人认购合约地址 全小写
-  wallet_private_key: '3da496423db57730e5889ecd40ffa008b6b70438c5abbb2af481210e320eadf7' # 签到领取/批量转账钱包的私钥 全小写
+  wallet_private_key: '3da496423db57730e5889ecd40ffa008b6b70438c5abbb2af481210e320eadf7' # 签到领取/批量转账钱包的私钥 全小写 此钱包私钥0xcff7283f3126fe907aa0514ad36659c7ff5dce86
   ep_ratio: 0.33 # EP兑换比例
   swap_public_key: '4f1ad087cd0868208767be52eb3946054918e77c30a94e07c33090e1fa732221'#兑换EP公钥

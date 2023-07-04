@@ -1,7 +1,5 @@
 package com.service.kapai.repository.entity;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.service.boot.converter.enums.EnumCode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -59,7 +57,7 @@ public class WalletCardEntity implements java.io.Serializable {
      * 默认值: 0
      */
     @Column("status")
-    public Status status;
+    public Integer status;
 
     /**
      * 更新时间
@@ -77,19 +75,13 @@ public class WalletCardEntity implements java.io.Serializable {
     @CreatedDate
     public java.util.Date createTime;
 
-    public enum Status implements EnumCode<Integer> {
+    public enum Status {
         RELEASING(0), RELEASED(1);
 
         public final int status;
 
         Status(int status) {
             this.status = status;
-        }
-
-        @JsonValue
-        @Override
-        public Integer getValue() {
-            return status;
         }
     }
 

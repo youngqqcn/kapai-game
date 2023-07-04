@@ -187,8 +187,8 @@ export default {
               console.log('api result: ', data);
               if(data.code === 200){
                 showToast.success(this.$t('public.toast.jiaoyichenggong'));
-                state.showBottom = false;
-                getChainListLog();
+                this.showBottom = false;
+                // getChainListLog();
               } else {
                 showToast.warn(store.public.$t('public.toast.jyfssb'));
               }

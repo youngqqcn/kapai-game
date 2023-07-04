@@ -1,7 +1,5 @@
 package com.service.kapai.repository.entity;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.service.boot.converter.enums.EnumCode;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -30,7 +28,7 @@ public class CheckInEntity implements java.io.Serializable {
      * 默认值: 0
      */
     @Column("type")
-    public Type type = Type.UNKNOWN;
+    public Integer type = 0;
 
     /**
      * 数量
@@ -40,7 +38,7 @@ public class CheckInEntity implements java.io.Serializable {
     public java.math.BigDecimal amount = new java.math.BigDecimal("0");
 
     @Column("status")
-    public Status status = Status.IN_PROGRESS;
+    public Integer status = 0;
 
     /**
      * 创建时间
@@ -49,7 +47,7 @@ public class CheckInEntity implements java.io.Serializable {
     @Column("date")
     public LocalDate date;
 
-    public enum Type implements EnumCode<Integer> {
+    public enum Type {
 
         UNKNOWN(0, "未知"), TOKEN_A(1, "A代币"), TOKEN_B(2, "B代币");
 
@@ -60,25 +58,9 @@ public class CheckInEntity implements java.io.Serializable {
             this.type = type;
             this.name = name;
         }
-
-        @JsonValue
-        @Override
-        public Integer getValue() {
-            return type;
-        }
-
-        public static Type valueOf(int type) {
-            Type[] values = Type.values();
-            for (Type t : values) {
-                if (t.type == type) {
-                    return t;
-                }
-            }
-            return Type.UNKNOWN;
-        }
     }
 
-    public enum Status implements EnumCode<Integer> {
+    public enum Status {
         IN_PROGRESS(0, "未签到"), COMPLETED(1, "已签到");
 
         public final int status;
@@ -87,11 +69,6 @@ public class CheckInEntity implements java.io.Serializable {
         Status(int status, String name) {
             this.status = status;
             this.name = name;
-        }
-
-        @Override
-        public Integer getValue() {
-            return status;
         }
     }
 

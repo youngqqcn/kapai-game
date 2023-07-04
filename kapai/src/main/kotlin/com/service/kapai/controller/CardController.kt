@@ -89,9 +89,9 @@ class CardController(
         val hash = body.getString("hash") ?: return ApiResponse.error(i18nMessage.getMessage("request.params.error.p1", "hash"))
         val order = moldOrderService.findMoldOrderById(orderId) ?: return ApiResponse.error(i18nMessage.getMessage("transaction_does_not_exist"))
         if (order.walletId != currentUser().id) return ApiResponse.error(i18nMessage.getMessage("transaction_does_not_exist"))
-        if (order.status != TransactionStatus.CREATED) return ApiResponse.error(i18nMessage.getMessage("transaction_processed"))
+        if (order.status != TransactionStatus.CREATED.status) return ApiResponse.error(i18nMessage.getMessage("transaction_processed"))
         if (hash.equals(order.txHash, true)) return ApiResponse.success(i18nMessage.getMessage("transaction_duplication"))
-        order.status = TransactionStatus.IN_PROGRESS
+        order.status = TransactionStatus.IN_PROGRESS.status
         order.txHash = hash
         moldOrderService.saveOrUpdateMoldOrder(order, null, null)
         redisTemplate.opsForList().rightPush(REDIS_KEY_ORDER, order)

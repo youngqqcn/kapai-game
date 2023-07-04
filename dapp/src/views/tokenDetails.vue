@@ -212,6 +212,9 @@ export default {
           this.chainListLog.push(...res.data.content);
           // 计算总页数
           this.pages.total = Math.ceil(res.data.total / res.data.pageable.size);
+          if(!res.data.content || res.data.content.length == 0){
+            this.finished = true;
+          }
           if (this.chainListLog.length >= this.pages.total) {
             this.finished = true;
           }
@@ -246,8 +249,8 @@ export default {
               console.log('api result: ', data);
               if(data.code === 200){
                 showToast.success(this.$t('public.toast.jiaoyichenggong'));
-                state.showBottom = false;
-                getChainListLog();
+                this.showBottom = false;
+                // getChainListLog();
               } else {
                 showToast.warn(store.public.$t('public.toast.jyfssb'));
               }

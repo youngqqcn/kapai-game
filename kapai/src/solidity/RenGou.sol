@@ -79,7 +79,8 @@ contract RenGou {
 
     mapping(address => mapping(uint => mapping(uint => uint))) private buyAddress;
     mapping(address => bool) private hasBuyNode;
-    IBEP20 private USDT = IBEP20(USDT代币地址);
+    //test net: 0x3966aeb2c687ea5f64440ea494e6aa7690fac518
+    IBEP20 private USDT = IBEP20(0x55d398326f99059fF775485246999027B3197955);
     IBEP20 private EP = IBEP20(IOT代币地址);
     IBEP20 private TOKEN_A = IBEP20(ART代币地址);
     uint private decimals = 10 ** 18;
@@ -114,13 +115,13 @@ contract RenGou {
                 USDT.transferFrom(msg.sender, recommender, nodes[nodeLevel][i].price.div(10).mul(2)); //直推20%
             } else {
                 recommender = address(0);
-                USDT.transferFrom(msg.sender, 直推没有购买转入的钱包地址, nodes[nodeLevel][i].price.div(10).mul(2)); //直推20%
+                USDT.transferFrom(msg.sender, 0x19C37Bf339fb205bD1A189c66cF1859F44bCD79d, nodes[nodeLevel][i].price.div(10).mul(2)); //直推20%
             }
-            USDT.transferFrom(msg.sender, 社区钱包地址, nodes[nodeLevel][i].price.div(10).mul(1)); //社区10%
-            USDT.transferFrom(msg.sender, 运维钱包地址, nodes[nodeLevel][i].price.div(10).mul(2)); //运维20%
-            USDT.transferFrom(msg.sender, 底池钱包地址, nodes[nodeLevel][i].price.div(10).mul(5)); //50%底池
+            USDT.transferFrom(msg.sender, 0xF722F398dE2271DAAb3C7Dc77b6D99Ba53a97A9d, nodes[nodeLevel][i].price.div(10).mul(1)); //社区10%
+            USDT.transferFrom(msg.sender, 0x7a6cAEB5F2681208bd994B242aBf257cB6d12869, nodes[nodeLevel][i].price.div(10).mul(2)); //运维20%
+            USDT.transferFrom(msg.sender, 0xD4d397991c72a02c86E9D4a312D8771B9CBd2919, nodes[nodeLevel][i].price.div(10).mul(5)); //50%底池
             EP.transfer(msg.sender, nodes[nodeLevel][i].ep * decimals);
-            TOKEN_A.transfer(每日提币钱包地址, nodes[nodeLevel][i].tokenA); //转一笔锁仓ART到分币钱包
+            TOKEN_A.transfer(0xcFF7283f3126fe907aA0514Ad36659C7fF5DCe86, nodes[nodeLevel][i].tokenA); //转一笔锁仓ART到分币钱包
             nodes[nodeLevel][i].buyCount = nodes[nodeLevel][i].buyCount.add(1);
             buyAddress[msg.sender][nodeLevel][i + 1] = buyAddress[msg.sender][nodeLevel][i + 1].add(1);
             hasBuyNode[msg.sender] = true;

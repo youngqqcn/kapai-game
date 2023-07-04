@@ -1,8 +1,5 @@
 package com.service.kapai.repository.entity;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.service.kapai.repository.model.Node;
-import com.service.boot.converter.enums.EnumCode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -38,7 +35,7 @@ public class WalletEntity implements java.io.Serializable {
      * 默认值: 0
      */
     @Column("status")
-    public Status status = Status.ENABLE;
+    public Integer status = 0;
 
     /**
      * 锁仓A代币数量
@@ -51,7 +48,7 @@ public class WalletEntity implements java.io.Serializable {
      * 节点人身份 1:小节点 2:大节点 3:超级节点
      */
     @Column("node")
-    public Node node = Node.NODE_0;
+    public Integer node = 0;
 
     /**
      * 更新时间
@@ -69,19 +66,4 @@ public class WalletEntity implements java.io.Serializable {
     @CreatedDate
     public java.util.Date createTime;
 
-    public enum Status implements EnumCode<Integer> {
-        ENABLE(0), DISABLE(1);
-
-        public final int status;
-
-        Status(int status) {
-            this.status = status;
-        }
-
-        @JsonValue
-        @Override
-        public Integer getValue() {
-            return status;
-        }
-    }
 }

@@ -13,13 +13,13 @@ import java.time.LocalDate
 interface CheckInRepository : ListCrudRepository<CheckInEntity, Long>, ListPagingAndSortingRepository<CheckInEntity, Long> {
 
     @Query("SELECT IFNULL(SUM(`amount`), 0) AS `amount` FROM `check_in` WHERE `wallet_id`=:walletId AND `type`=:type AND `status`=:status AND `date`=:date")
-    fun getSumAmount(walletId: Long, type: CheckInEntity.Type, status: CheckInEntity.Status, date: LocalDate): BigDecimal
+    fun getSumAmount(walletId: Long, type: Int, status: Int, date: LocalDate): BigDecimal
 
     @Modifying
     @Query("UPDATE `check_in` SET `status`=:status WHERE `wallet_id`=:walletId AND `type`=:type AND `date`=:date")
-    fun updateStatus(walletId: Long, type: CheckInEntity.Type, status: CheckInEntity.Status, date: LocalDate)
+    fun updateStatus(walletId: Long, type: Int, status: Int, date: LocalDate)
 
     @Query("SELECT IFNULL(SUM(`amount`), 0) AS `amount` FROM `check_in` WHERE `type`=:type AND `date`=:date")
-    fun getSumCheckAmountTotal(type: CheckInEntity.Type, date: LocalDate): BigDecimal
+    fun getSumCheckAmountTotal(type: Int, date: LocalDate): BigDecimal
 
 }

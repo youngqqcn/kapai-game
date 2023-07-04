@@ -1,9 +1,6 @@
 package com.service.kapai.repository.model;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.service.boot.converter.enums.EnumCode;
-
-public enum TransactionStatus implements EnumCode<Integer> {
+public enum TransactionStatus {
     FAILURE(-1), IN_PROGRESS(0), COMPLETED(1), CREATED(2);
 
     public final int status;
@@ -12,9 +9,4 @@ public enum TransactionStatus implements EnumCode<Integer> {
         this.status = status;
     }
 
-    @JsonValue
-    @Override
-    public Integer getValue() {
-        return status;
-    }
 }

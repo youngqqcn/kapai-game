@@ -8,8 +8,6 @@ const val BLACK_HOLE_ADDRESS_2 = "0x0000000000000000000000000000000000000222"
 var TOKEN_A_PRICE = BigDecimal.ZERO
 var TOKEN_B_PRICE = BigDecimal.ZERO
 
-var DESTROY_VALUE = BigDecimal.valueOf(10000)
-
 const val REDIS_KEY_ORDER = "order"
 const val REDIS_KEY_USER = "user:"
 const val REDIS_KEY_USER_CARD = "user-card:"

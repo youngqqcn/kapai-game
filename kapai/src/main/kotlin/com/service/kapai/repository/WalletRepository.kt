@@ -4,7 +4,6 @@ import org.springframework.data.repository.ListCrudRepository
 import org.springframework.data.repository.ListPagingAndSortingRepository
 import org.springframework.stereotype.Repository
 import com.service.kapai.repository.entity.WalletEntity
-import com.service.kapai.repository.model.Node
 import org.springframework.data.jdbc.repository.query.Query
 import java.math.BigDecimal
 
@@ -18,7 +17,7 @@ interface WalletRepository : ListCrudRepository<WalletEntity, Long>, ListPagingA
 
     fun findByIdIn(id: Collection<Long>): List<WalletEntity>
 
-    fun countByNode(node: Node): Int
+    fun countByNode(node: Int): Int
 
     @Query("SELECT IFNULL(SUM(`lock_token_a`), 0) AS `amount` FROM `wallet` WHERE `node`>0")
     fun sumLockTokenA(): BigDecimal

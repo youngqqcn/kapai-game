@@ -1,5 +1,9 @@
 package com.service.kapai.controller
 
+import com.service.boot.common.DateTimeFormat
+import com.service.boot.i18n.I18nMessage
+import com.service.boot.json.JSONObject
+import com.service.boot.model.ApiResponse
 import com.service.kapai.ApiRequestExamples
 import com.service.kapai.ApiResponseExamples
 import com.service.kapai.REDIS_KEY_ORDER
@@ -11,10 +15,6 @@ import com.service.kapai.repository.model.Node
 import com.service.kapai.repository.model.TransactionStatus
 import com.service.kapai.service.BuyNodeOrderService
 import com.service.kapai.service.WalletService
-import com.service.boot.common.DateTimeFormat
-import com.service.boot.i18n.I18nMessage
-import com.service.boot.json.JSONObject
-import com.service.boot.model.ApiResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.enums.ParameterIn
@@ -23,11 +23,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.http.MediaType
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @Tag(name = "节点相关")
 @RestController
@@ -71,7 +67,7 @@ class BuyNodeController(
         val recommender = walletService.findWalletById(superiorId) ?: return ApiResponse.error(i18nMessage.getMessage("recommender_does_not_exist"))
         val order = BuyNodeOrderEntity().also {
             it.walletId = currentUser().id
-            it.node = node
+            it.node = node.node
         }
         buyNodeOrderService.saveOrUpdateNodeOrder(order, null, null)
         val inputData = LibWeb3.LIB_WEB_3.GetBuyNodeEncodeData(node.node.toLong(), GoString.ByValue.of(recommender.wallet), order.id)
@@ -100,9 +96,9 @@ class BuyNodeController(
         val hash = body.getString("hash") ?: return ApiResponse.error(i18nMessage.getMessage("request.params.error.p1", "hash"))
         val order = buyNodeOrderService.findBuyNodeOrder(orderId) ?: return ApiResponse.error(i18nMessage.getMessage("transaction_does_not_exist"))
         if (order.walletId != currentUser().id) return ApiResponse.error(i18nMessage.getMessage("transaction_does_not_exist"))
-        if (order.status != TransactionStatus.CREATED) return ApiResponse.error(i18nMessage.getMessage("transaction_processed"))
+        if (order.status != TransactionStatus.CREATED.status) return ApiResponse.error(i18nMessage.getMessage("transaction_processed"))
         if (hash.equals(order.txHash, true)) return ApiResponse.success(i18nMessage.getMessage("transaction_duplication"))
-        order.status = TransactionStatus.IN_PROGRESS
+        order.status = TransactionStatus.IN_PROGRESS.status
         order.txHash = hash
         buyNodeOrderService.saveOrUpdateNodeOrder(order, null, null)
         redisTemplate.opsForList().rightPush(REDIS_KEY_ORDER, order)
@@ -114,10 +110,10 @@ class BuyNodeController(
         responses = [io.swagger.v3.oas.annotations.responses.ApiResponse(content = [Content(examples = [ExampleObject(value = ApiResponseExamples.node_order_list)], mediaType = MediaType.APPLICATION_JSON_VALUE)])]
     )
     @GetMapping("orders")
-    fun order(@Parameter(`in` = ParameterIn.QUERY, description = "页码 从0开始") page: Int): ApiResponse{
+    fun order(@Parameter(`in` = ParameterIn.QUERY, description = "页码 从0开始") page: Int): ApiResponse {
         return ApiResponse.success(buyNodeOrderService.getOrders(currentUser().id, 20, page).map { order ->
-            order.node.getInfo(properties.rengGouContract).also { map ->
-                map.put("status", order.status.status)
+            Node.valueOfNode(order.node).getInfo(properties.rengGouContract).also { map ->
+                map.put("status", order.status)
                 map.put("txHash", order.txHash)
                 map.put("period", order.period)
                 map.put("price", order.price)

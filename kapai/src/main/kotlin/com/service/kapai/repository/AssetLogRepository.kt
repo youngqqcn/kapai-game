@@ -1,8 +1,6 @@
 package com.service.kapai.repository
 
 import com.service.kapai.repository.entity.AssetLogEntity
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.data.jdbc.repository.query.Query
 import org.springframework.data.repository.ListCrudRepository
 import org.springframework.data.repository.ListPagingAndSortingRepository
@@ -28,7 +26,7 @@ WHERE `type` IN (:type)
   ORDER BY `create_time` DESC LIMIT :offset,:pageSize;
     """)
     fun logs(
-        type: Collection<AssetLogEntity.Type>,
+        type: Collection<Int>,
         source: Collection<Int>,
         walletId: Long,
         createTime: LocalDate?,
@@ -47,7 +45,7 @@ WHERE `type` IN (:type)
   AND IF(:cardModelId IS NOT NULL, `card_model_id` = :cardModelId, TRUE);
     """)
     fun logsCount(
-        type: Collection<AssetLogEntity.Type>,
+        type: Collection<Int>,
         source: Collection<Int>,
         walletId: Long,
         createTime: LocalDate?,

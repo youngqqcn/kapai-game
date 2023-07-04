@@ -135,7 +135,7 @@ contract Token is Context, IBEP20, Ownable {
     mapping(address => mapping(address => uint256)) private _allowances;
     address private _LP = 0x0000000000000000000000000000000000000000;
     address private _black_hole = 0x0000000000000000000000000000000000000111;
-    address private _address_b = 卖手续费 收费LP的钱包地址;
+    address private _address_b = 0xB58a94987B944390Dd9B40d4aCB7442Ef9ed7e7b;
     uint256 private _totalSupply;
     uint8 private _decimals;
     string private _symbol;

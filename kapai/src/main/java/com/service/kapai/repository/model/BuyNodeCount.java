@@ -4,7 +4,7 @@ import org.springframework.data.relational.core.mapping.Column;
 
 public class BuyNodeCount {
     @Column("node")
-    public Node node;
+    public Integer node;
 
     @Column("price")
     public long price;

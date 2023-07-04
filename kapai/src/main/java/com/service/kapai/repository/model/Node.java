@@ -1,12 +1,9 @@
 package com.service.kapai.repository.model;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.service.boot.converter.enums.EnumCode;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-public enum Node implements EnumCode<Integer> {
+public enum Node {
     NODE_0(0, "", 0, BigDecimal.ZERO),
     NODE_1(1, "小节点", 2000, new BigDecimal("0.1")),
     NODE_2(2, "大节点", 9000, new BigDecimal("0.2")),
@@ -29,12 +26,6 @@ public enum Node implements EnumCode<Integer> {
         this.name = name;
         this.tokenA = tokenA;
         this.weight = weight;
-    }
-
-    @JsonValue
-    @Override
-    public Integer getValue() {
-        return node;
     }
 
     public BigDecimal getWeightPower(BigDecimal power) {

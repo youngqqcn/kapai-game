@@ -102,7 +102,7 @@ class Tasks(
                 for (order in orders) {
                     when (order) {
                         is WithdrawOrderEntity -> {
-                            if (order.txHash.isNullOrBlank() || order.status != TransactionStatus.IN_PROGRESS) {
+                            if (order.txHash.isNullOrBlank() || order.status != TransactionStatus.IN_PROGRESS.status) {
                                 operations.remove(REDIS_KEY_ORDER, 0, order)
                                 continue
                             }
@@ -114,9 +114,9 @@ class Tasks(
                                     operations.remove(REDIS_KEY_ORDER, 0, order)
                                     val status = obj.getInteger("status")
                                     if (status == 1) {
-                                        order.status = TransactionStatus.COMPLETED
+                                        order.status = TransactionStatus.COMPLETED.status
                                     } else {
-                                        order.status = TransactionStatus.FAILURE
+                                        order.status = TransactionStatus.FAILURE.status
                                     }
                                     walletService.saveOrUpdateWithdrawOrder(order)
                                 }
@@ -124,7 +124,7 @@ class Tasks(
                         }
 
                         is MoldOrderEntity -> {
-                            if (order.txHash.isNullOrBlank() || order.status != TransactionStatus.IN_PROGRESS) {
+                            if (order.txHash.isNullOrBlank() || order.status != TransactionStatus.IN_PROGRESS.status) {
                                 operations.remove(REDIS_KEY_ORDER, 0, order)
                                 continue
                             }
@@ -146,7 +146,7 @@ class Tasks(
                                     val logs = mutableListOf<AssetLogEntity>()
                                     val checkIn = mutableListOf<CheckInEntity>()
                                     if (status == 1 && no == order.id) {
-                                        order.status = TransactionStatus.COMPLETED
+                                        order.status = TransactionStatus.COMPLETED.status
                                         order.price = price.toBigDecimal()
                                         order.ep = ep.toBigDecimal()
                                         order.tokenA = tokenA
@@ -170,12 +170,12 @@ class Tasks(
                                             it.output = BigDecimal(card.output)
                                             it.power = card.power.toLong()
                                             it.days = days
-                                            it.status = WalletCardEntity.Status.RELEASING
+                                            it.status = WalletCardEntity.Status.RELEASING.status
                                         })
                                         logs.add(AssetLogEntity().also {
                                             it.walletId = order.walletId
                                             it.cardModelId = id
-                                            it.type = AssetLogEntity.Type.Power
+                                            it.type = AssetLogEntity.Type.Power.type
                                             it.source = AssetLogEntity.SourcePower.MOLD.source
                                             it.amount = card.power.toBigDecimal()
                                             it.extra = """{"orderId":${order.id}}"""
@@ -190,7 +190,7 @@ class Tasks(
                                                 //推荐人增加算力
                                                 logs.add(AssetLogEntity().also {
                                                     it.walletId = sw.id
-                                                    it.type = AssetLogEntity.Type.Power
+                                                    it.type = AssetLogEntity.Type.Power.type
                                                     it.source = AssetLogEntity.SourcePower.ZT_MOLD.source
                                                     it.cardModelId = id
                                                     it.beforeAmount = sw.ztPower.toBigDecimal()
@@ -212,13 +212,13 @@ class Tasks(
                                                         it.amount = p1
                                                         it.walletId = sw.id
                                                         it.date = LocalDate.now()
-                                                        it.type = CheckInEntity.Type.TOKEN_A
-                                                        it.status = CheckInEntity.Status.IN_PROGRESS
+                                                        it.type = CheckInEntity.Type.TOKEN_A.type
+                                                        it.status = CheckInEntity.Status.IN_PROGRESS.status
                                                     })
                                                     logs.add(
                                                         AssetLogEntity().also {
                                                             it.walletId = sw.id
-                                                            it.type = AssetLogEntity.Type.TOKEN_A
+                                                            it.type = AssetLogEntity.Type.TOKEN_A.type
                                                             it.source = AssetLogEntity.SourceToken.NODE_MOLD.source
                                                             it.cardModelId = id
                                                             it.beforeAmount = p2
@@ -231,7 +231,7 @@ class Tasks(
                                             }
                                         }
                                     } else {
-                                        order.status = TransactionStatus.FAILURE
+                                        order.status = TransactionStatus.FAILURE.status
                                     }
                                     moldOrderService.onCasting(order, sw, wcs, null, logs, checkIn)
                                     syncWalletToRedis(null, order.walletId)
@@ -244,7 +244,7 @@ class Tasks(
                         }
 
                         is BuyNodeOrderEntity -> {
-                            if (order.txHash.isNullOrBlank() || order.status != TransactionStatus.IN_PROGRESS) {
+                            if (order.txHash.isNullOrBlank() || order.status != TransactionStatus.IN_PROGRESS.status) {
                                 operations.remove(REDIS_KEY_ORDER, 0, order)
                                 continue
                             }
@@ -263,22 +263,22 @@ class Tasks(
                                         val price = obj.getIntegerValue("price")
                                         val ep = obj.getIntegerValue("ep")
                                         if (node != Node.NODE_0 && wallet != null) {
-                                            order.node = node
+                                            order.node = node.node
                                             order.price = price
                                             order.period = period
                                             order.ep = ep
-                                            order.status = TransactionStatus.COMPLETED
+                                            order.status = TransactionStatus.COMPLETED.status
                                             val logs = mutableListOf<AssetLogEntity>()
                                             val log = AssetLogEntity().also {
                                                 it.walletId = wallet.id
-                                                it.type = AssetLogEntity.Type.TOKEN_A
+                                                it.type = AssetLogEntity.Type.TOKEN_A.type
                                                 it.source = AssetLogEntity.SourceToken.BUY_NODE.source
                                                 it.beforeAmount = wallet.lockTokenA
                                                 it.amount = price.toBigDecimal()
                                             }
                                             wallet.lockTokenA = wallet.lockTokenA.加(node.tokenA.toBigDecimal())
-                                            if (wallet.node.node < node.node) {
-                                                wallet.node = node
+                                            if (wallet.node < node.node) {
+                                                wallet.node = node.node
                                             }
                                             log.afterAmount = wallet.lockTokenA
                                             logs.add(log)
@@ -286,7 +286,7 @@ class Tasks(
                                             syncWalletToRedis(wallet, null)
                                         }
                                     } else {
-                                        order.status = TransactionStatus.FAILURE
+                                        order.status = TransactionStatus.FAILURE.status
                                         buyNodeOrderService.saveOrUpdateNodeOrder(order, null, null)
                                     }
                                 }
@@ -475,19 +475,19 @@ class Tasks(
                 var num = BigDecimal(item.power).乘(oneTokenA)
                 if (item.output.小于等于(num)) {
                     num = item.output
-                    status = WalletCardEntity.Status.RELEASED
+                    status = WalletCardEntity.Status.RELEASED.status
                 }
                 script.append("\r\n-- tokenA 分红")
                 //修改用户卡牌产出减少和天数增加
                 var sql = "UPDATE `wallet_card` SET `output`=`output`-'%s', `days`=`days`+1, `status`=%d WHERE `id`=%d;"
-                script.append("\r\n").append(String.format(sql, num.number(), status.status, item.id))
+                script.append("\r\n").append(String.format(sql, num.number(), status, item.id))
                 //增加A代币当天签到
                 sql = "INSERT INTO `check_in`(`wallet_id`, `type`, `amount`, `status`, `date`) VALUE (%d, %d, '%s', %d, '%s');"
                 script.append("\r\n").append(String.format(sql, item.walletId, 1, num.乘(tokenAPrice).number(), 0, date))
                 //增加A代币分红记录
                 sql = "INSERT INTO `asset_log`(`wallet_id`, `type`, `source`, `card_model_id`, `amount`) VALUE (%d, %d, %d, %d, '%s');"
                 script.append("\r\n").append(String.format(sql, item.walletId, 2, 3, card.id, num.乘(tokenAPrice).number()))
-                if (status == WalletCardEntity.Status.RELEASED) {
+                if (status == WalletCardEntity.Status.RELEASED.status) {
                     val suId = redisMap.get(item.walletId.REDIS_KEY_USER(), "superior_id") as? Int
                     if (suId != null) {
                         //减少上级直推算力
@@ -498,17 +498,17 @@ class Tasks(
                 item.output = item.output.减(num)
                 item.status = status
 
-                if (oneTokenB.大于(BigDecimal.ZERO) && status == WalletCardEntity.Status.RELEASING) {
+                if (oneTokenB.大于(BigDecimal.ZERO) && status == WalletCardEntity.Status.RELEASING.status) {
                     var bNum = WalletCardEntity.getPowerB(item).乘(oneTokenB)
                     if (bNum.大于(BigDecimal.ZERO)) {
                         if (item.output.小于等于(bNum)) {
                             bNum = item.output
-                            status = WalletCardEntity.Status.RELEASED
+                            status = WalletCardEntity.Status.RELEASED.status
                         }
                         script.append("\r\n").append("-- tokenB 分红")
                         //修改用户卡牌产出减少和天数增加
                         sql = "UPDATE `wallet_card` SET `output`=`output`-'%s', `status`=%d WHERE `id`=%d;"
-                        script.append("\r\n").append(String.format(sql, bNum.number(), status.status, item.id))
+                        script.append("\r\n").append(String.format(sql, bNum.number(), status, item.id))
                         //增加B代币当天签到
                         sql = "INSERT INTO `check_in`(`wallet_id`, `type`, `amount`, `status`, `date`) VALUE (%d, %d, '%s', %d, '%s');"
                         script.append("\r\n").append(String.format(sql, item.walletId, 2, bNum.乘(tokenBPrice).number(), 0, date))
@@ -572,24 +572,24 @@ class Tasks(
                     val valueBOne = valueB.除(BigDecimal(sum), 18)
                     for (item in members) {
                         val card = cards[item.cardModelId] ?: continue
-                        if (item.status == WalletCardEntity.Status.RELEASED) continue
+                        if (item.status == WalletCardEntity.Status.RELEASED.status) continue
                         var status = item.status
                         var numA = valueAOne.乘(BigDecimal(card.output))
                         if (item.output.小于等于(numA)) {
                             numA = item.output
-                            status = WalletCardEntity.Status.RELEASED
+                            status = WalletCardEntity.Status.RELEASED.status
                         }
                         script.append("\r\n").append("-- tokenA 分红")
                         //修改用户卡牌产出减少
                         var sql = "UPDATE `wallet_card` SET `status`=%d, `output`=`output`-'%s' WHERE `id`=%d;"
-                        script.append("\r\n").append(String.format(sql, status.status, numA.number(), item.id))
+                        script.append("\r\n").append(String.format(sql, status, numA.number(), item.id))
                         //更新A代币当天签到数量
                         sql = "INSERT INTO `check_in`(`wallet_id`, `type`, `amount`, `status`, `date`) VALUE (%d, %d, '%s', %d, '%s');"
                         script.append("\r\n").append(String.format(sql, item.walletId, 1, numA.乘(tokenAPrice).number(), 0, date))
                         //增加A代币分红记录
                         sql = "INSERT INTO `asset_log`(`wallet_id`, `type`, `source`, `card_model_id`, `amount`) VALUE (%d, %d, %d, %d, '%s');"
                         script.append("\r\n").append(String.format(sql, item.walletId, 2, 4, card.id, numA.乘(tokenAPrice).number()))
-                        if (status == WalletCardEntity.Status.RELEASED) {
+                        if (status == WalletCardEntity.Status.RELEASED.status) {
                             val suId = redisMap.get(item.walletId.REDIS_KEY_USER(), "superior_id") as? Int
                             if (suId != null) {
                                 //减少上级直推算力
@@ -604,12 +604,12 @@ class Tasks(
                         if (numB.大于(BigDecimal.ZERO)) {
                             if (item.output.小于等于(numB)) {
                                 numB = item.output
-                                status = WalletCardEntity.Status.RELEASED
+                                status = WalletCardEntity.Status.RELEASED.status
                             }
                             script.append("\r\n").append("-- tokenB 分红")
                             //修改用户卡牌产出减少
                             sql = "UPDATE `wallet_card` SET `output`=`output`-'%s', `status`=%d WHERE `id`=%d;"
-                            script.append("\r\n").append(String.format(sql, numB.number(), status.status, item.id))
+                            script.append("\r\n").append(String.format(sql, numB.number(), status, item.id))
                             //更新B代币当天签到数量
                             sql = "INSERT INTO `check_in`(`wallet_id`, `type`, `amount`, `status`, `date`) VALUE (%d, %d, '%s', %d, '%s');"
                             script.append("\r\n").append(String.format(sql, item.walletId, 2, numB.乘(tokenBPrice).number(), 0, date))
@@ -925,7 +925,7 @@ class Tasks(
         redisMap.put(key, "wallet", entity.wallet)
         redisMap.put(key, "zt_power", entity.ztPower)
         redisMap.put(key, "power", walletService.walletTotalPower(entity.id))
-        redisMap.put(key, "node", entity.node.node)
+        redisMap.put(key, "node", entity.node)
         redisMap.put(key, "lock_token_a", entity.lockTokenA.number())
         redisMap.put(key, "buy_node_sum", buyNodeOrderService.getWalletBuyNodeSumPrice(entity.id))
     }

@@ -77,7 +77,7 @@ class WalletService(
     @Transactional(readOnly = true)
     fun listWalletCard(page: Int, pageSize: Int): Page<WalletCardEntity> {
         return walletCardRepository.findByStatusAndOutputGreaterThan(
-            WalletCardEntity.Status.RELEASING,
+            WalletCardEntity.Status.RELEASING.status,
             BigDecimal.ZERO,
             PageRequest.of(page, pageSize, Sort.by(Sort.Order.asc("id")))
         )
@@ -87,7 +87,7 @@ class WalletService(
     fun listByWalletCard(walletId: Long): List<WalletCardEntity> {
         return walletCardRepository.findByWalletIdAndStatusAndOutputGreaterThan(
             walletId,
-            WalletCardEntity.Status.RELEASING,
+            WalletCardEntity.Status.RELEASING.status,
             BigDecimal.ZERO
         )
     }
@@ -120,7 +120,7 @@ class WalletService(
     fun getMyCards(walletId: Long): List<WalletCardInfo> {
         val list = mutableListOf<WalletCardInfo>()
         val map = walletCardRepository.findByWallet(walletId).associateBy { it.id }
-        val cards = walletCardRepository.findByWalletIdAndStatusAndDaysGreaterThanEqual(walletId, WalletCardEntity.Status.RELEASING, 20)
+        val cards = walletCardRepository.findByWalletIdAndStatusAndDaysGreaterThanEqual(walletId, WalletCardEntity.Status.RELEASING.status, 20)
         val sumB = cards.groupBy { it.cardModelId }.mapValues { it.value.sumOf { WalletCardEntity.getPowerB(it) } }
         val all = cardModelRepository.findAll()
         for (c in all) {
@@ -171,7 +171,7 @@ class WalletService(
         date: LocalDate?,
         page: Int
     ): Page<AssetLogEntity> {
-        val types = type.map { AssetLogEntity.Type.valueOf(it) }
+        val types = type.map { AssetLogEntity.Type.valueOf(it).type }
         val sources = source.toSet()
         val pageable = PageRequest.of(page, 20)
         val count = assetLogRepository.logsCount(types, sources, walletId, date, cardModelId)
@@ -181,7 +181,7 @@ class WalletService(
 
     @Transactional(readOnly = true)
     fun getSumAmount(walletId: Long, type: CheckInEntity.Type, status: CheckInEntity.Status, date: LocalDate) =
-        checkInRepository.getSumAmount(walletId, type, status, date)
+        checkInRepository.getSumAmount(walletId, type.type, status.status, date)
 
     @Transactional
     fun checkIn(type: CheckInEntity.Type, wallet: WalletEntity, value: BigDecimal): Boolean {
@@ -212,7 +212,7 @@ class WalletService(
         }
         val log = AssetLogEntity()
         log.walletId = wallet.id
-        log.type = logType
+        log.type = logType.type
         log.source = AssetLogEntity.SourceToken.WITHDRAW.source
         log.amount = value.negate()
         log.beforeAmount = value
@@ -225,7 +225,7 @@ class WalletService(
             it.amount = value
             it.txHash = txHash
         }
-        checkInRepository.updateStatus(wallet.id, type, CheckInEntity.Status.COMPLETED, LocalDate.now())
+        checkInRepository.updateStatus(wallet.id, type.type, CheckInEntity.Status.COMPLETED.status, LocalDate.now())
         withdrawOrderRepository.save(order)
         assetLogRepository.save(log)
         redisTemplate.opsForList().rightPush(REDIS_KEY_ORDER, order)
@@ -247,7 +247,7 @@ class WalletService(
     fun saveAssetLogs(logs: Collection<AssetLogEntity>) = assetLogRepository.saveAll(logs)
 
     @Transactional(readOnly = true)
-    fun countByNode(node: Node) = walletRepository.countByNode(node)
+    fun countByNode(node: Node) = walletRepository.countByNode(node.node)
 
     @Transactional(readOnly = true)
     fun findSwapEPOrder(orderId: String) = swapEPOrderRepository.findByOrderId(orderId)
@@ -259,6 +259,6 @@ class WalletService(
 
     @Transactional(readOnly = true)
     fun getSumCheckAmountTotal(type: CheckInEntity.Type, date: LocalDate): BigDecimal {
-        return checkInRepository.getSumCheckAmountTotal(type, date)
+        return checkInRepository.getSumCheckAmountTotal(type.type, date)
     }
 }
