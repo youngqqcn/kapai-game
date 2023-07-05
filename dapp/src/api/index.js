@@ -18,12 +18,12 @@ const api = {
   getWalletBind: (params = {}) => ajaxDapp.post(`/wallet/bind`, params), //  绑定邀请人钱包地址
   getPowerInfo: (params = {}) => ajaxDapp.get(`/power/info`, params), //  获取算力信息
   getWalletCheckIn: (params = {}) => ajaxDapp.get(`/wallet/checkIn?${params}`, ), //  绑定邀请人钱包地址
-  
+
   getNodeList: (params = {}) => ajaxDapp.get(`/node/list`, params), // 获取节点列表
   getNodeOrder: (params = '') => ajaxDapp.get(`/node/orders?${params}`), // 获取节点订单列表
   getNodeBuy: (params = {}) => ajaxDapp.post(`/node/buy`, params), // 节点签名
   getNodeSend: (params = {}) => ajaxDapp.post(`/node/send`, params), // 提交购买交易
-  
+
 
 
 
